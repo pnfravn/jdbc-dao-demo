@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+C:\Users\nefer\conexão-jdbc\.metadata\.plugins\org.eclipse.jdt.core
+2286508850.index
+1865797976.index
+684618677.index
+767189389.index

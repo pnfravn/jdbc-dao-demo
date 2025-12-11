@@ -1,0 +1,67 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+import db.DB;
+
+public class Program {
+
+	public static void main(String[] args) throws ParseException {
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("diga o nome: ");
+		String nome = sc.nextLine();
+		System.out.println();
+		
+		System.out.print("Email: ");
+		String email =  sc.nextLine();
+		System.out.println();
+		
+		System.out.print("Birthdate: ");
+		String birthdate=  sc.nextLine();
+		System.out.println();
+		
+		System.out.print("BaseSalary: ");
+		String bs =  sc.nextLine();
+		System.out.println();
+		
+		System.out.print("Department Id: ");
+		String diddy =  sc.nextLine();
+		System.out.println();
+		
+		Connection conn = null;
+		
+		PreparedStatement st = null; 
+		
+		try {
+			
+			conn = DB.getConnection();
+			
+			st = conn.prepareStatement("update seller set name = ?, email = ?, birthdate = ?, basesalary = ?, departmentId = ? where id = ?" );
+			
+			
+			st.setString(1, nome);
+			st.setString(2, email);
+			st.setDate(3, new Date(sdf.parse(birthdate).getTime()));
+			st.setDouble(4, 0);
+			st.setInt(5, 3);
+			st.setInt(6, 34);
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		} finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+	}
+}

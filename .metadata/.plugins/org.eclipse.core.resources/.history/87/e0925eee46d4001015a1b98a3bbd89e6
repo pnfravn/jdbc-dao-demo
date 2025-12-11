@@ -1,0 +1,55 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+import db.DB;
+
+public class Program {
+
+	public static void main(String[] args) throws ParseException {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+		
+		
+		
+		Connection conn = null;
+		
+		PreparedStatement st = null;
+		
+		
+		try {
+		conn = DB.getConnection();
+			
+		st = conn.prepareStatement("update seller set name = ?, email = ?, birthdate = ?, basesalary = ? where id = ?");
+		
+		
+		
+		
+		st.setString(1, "Renan Play");
+		st.setString(2, "caveira@gmail.com");
+		st.setDate(3, new java.sql.Date(sdf.parse("14/10/1983").getTime()));
+		st.setDouble(4, 10000);
+		st.setInt(5, 4);
+		
+		int RowsA = st.executeUpdate();
+		System.out.println("Affected Rows" + RowsA);
+		}
+			catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		finally {
+		sc.close();
+		DB.closeStatement(st);
+		DB.closeConnection();
+		}
+	}
+}

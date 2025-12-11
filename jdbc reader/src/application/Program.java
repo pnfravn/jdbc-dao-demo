@@ -1,0 +1,40 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+import db.DB;
+
+public class Program {
+
+	public static void main(String[] args) throws ParseException {
+
+	Connection conn = null;
+	PreparedStatement st = null;
+	
+		try {
+		conn = DB.getConnection();
+		
+		st = conn.prepareStatement("UPDATE SELLER SET basesalary = basesalary + ? where DepartmentId = ?");
+		
+		st.setDouble(1, -800.0);
+		st.setInt(2, 2);
+		
+		int rowsA = st.executeUpdate();
+		
+		System.out.println("feito: " + rowsA);
+		}
+		catch (SQLException sqle) {
+			
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+	}
+}
